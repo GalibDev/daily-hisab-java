@@ -1,0 +1,14 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:background="#F4F7F6">
+    <LinearLayout android:id="@+id/root" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="28dp" android:gravity="center_vertical">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="DAILY HISAB" android:textColor="#137C66" android:textStyle="bold" android:letterSpacing="0.15" android:textSize="14sp"/>
+        <TextView android:id="@+id/authTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="18dp" android:text="Your money.\nA clearer picture." android:textSize="34sp" android:textStyle="bold" android:textColor="#172E28"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:layout_marginBottom="28dp" android:text="Track everyday income and expenses in taka." android:textSize="16sp" android:textColor="#60756D"/>
+        <EditText android:id="@+id/name" android:layout_width="match_parent" android:layout_height="56dp" android:hint="Your name" android:inputType="textPersonName" android:maxLength="80" android:visibility="gone"/>
+        <EditText android:id="@+id/email" android:layout_width="match_parent" android:layout_height="56dp" android:hint="Email address" android:inputType="textEmailAddress" android:maxLength="190"/>
+        <EditText android:id="@+id/password" android:layout_width="match_parent" android:layout_height="56dp" android:hint="Password (at least 8 characters)" android:inputType="textPassword" android:maxLength="64"/>
+        <TextView android:id="@+id/authError" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#B3261E" android:accessibilityLiveRegion="polite" android:layout_marginTop="12dp"/>
+        <Button android:id="@+id/submit" android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="18dp" android:text="Log in" android:backgroundTint="#137C66" android:textColor="#FFFFFF"/>
+        <Button android:id="@+id/switchAuth" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="New here? Create an account" style="?android:attr/borderlessButtonStyle"/>
+        <Button android:id="@+id/server" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Server settings" style="?android:attr/borderlessButtonStyle"/>
+    </LinearLayout>
+</ScrollView>
