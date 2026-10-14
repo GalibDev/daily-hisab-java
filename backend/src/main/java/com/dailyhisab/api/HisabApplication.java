@@ -5,5 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class HisabApplication {
-    public static void main(String[] args) { SpringApplication.run(HisabApplication.class, args); }
+  public static void main(String[] args) {
+    SpringApplication.run(HisabApplication.class, args);
+  }
 }
