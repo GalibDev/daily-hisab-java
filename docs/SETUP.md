@@ -80,6 +80,16 @@ $env:TEST_DB_PASSWORD = 'your-test-password'
 
 Tests delete all rows from the selected database. Never point `TEST_DB_URL` at your personal ledger.
 
+For the Android UI smoke test, start the backend and an emulator first, then run:
+
+```powershell
+.\gradlew.bat :app:connectedDebugAndroidTest
+```
+
+This test registers a uniquely named demo account, adds an expense and checks the dashboard/monthly report. It expects the emulator default URL (`http://10.0.2.2:8080`) and leaves demo data in the backend database.
+
+GitHub Actions also runs the API tests against a MySQL service, checks Android lint, and uploads the debug APK. The emulator test is run locally.
+
 ## Version 1 boundaries
 
 - Server connection required; no offline synchronization.
