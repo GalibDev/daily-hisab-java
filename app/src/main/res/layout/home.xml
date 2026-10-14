@@ -1,23 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:background="#F4F7F6" android:fillViewport="true">
-    <LinearLayout android:id="@+id/root" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="22dp" android:orientation="vertical">
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="DAILY HISAB" android:textColor="#137C66" android:textStyle="bold" android:letterSpacing="0.15"/>
-        <TextView android:id="@+id/greeting" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="28sp" android:textStyle="bold" android:textColor="#172E28" android:layout_marginTop="12dp"/>
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Your everyday money, all in one place." android:textColor="#60756D" android:layout_marginBottom="22dp"/>
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/card">
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="AVAILABLE BALANCE · ALL TIME" android:textColor="#60756D" android:textSize="12sp"/>
-            <TextView android:id="@+id/balance" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="—" android:textSize="36sp" android:textStyle="bold" android:textColor="#137C66" android:layout_marginTop="8dp"/>
-            <TextView android:id="@+id/totals" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Loading totals…" android:textSize="16sp" android:layout_marginTop="16dp" android:textColor="#172E28"/>
-        </LinearLayout>
-        <Button android:id="@+id/add" android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="18dp" android:text="+ Add transaction" android:backgroundTint="#137C66" android:textColor="#FFFFFF"/>
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-            <Button android:id="@+id/categories" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Categories" style="?android:attr/borderlessButtonStyle"/>
-            <Button android:id="@+id/report" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Monthly report" style="?android:attr/borderlessButtonStyle"/>
-        </LinearLayout>
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Transactions" android:textSize="23sp" android:textStyle="bold" android:textColor="#172E28" android:layout_marginTop="16dp"/>
-        <TextView android:id="@+id/filterLabel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="All dates · All types · All categories" android:textColor="#60756D" android:layout_marginTop="8dp"/>
-        <Button android:id="@+id/filter" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Filter / Refresh" style="?android:attr/borderlessButtonStyle"/>
-        <TextView android:id="@+id/homeError" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#B3261E" android:accessibilityLiveRegion="polite"/>
-        <LinearLayout android:id="@+id/entries" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"/>
-        <Button android:id="@+id/logout" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Log out" style="?android:attr/borderlessButtonStyle" android:layout_marginTop="20dp"/>
+  <LinearLayout android:id="@+id/root" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="22dp" android:orientation="vertical">
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/daily_hisab" android:textColor="#137C66" android:textStyle="bold" android:letterSpacing="0.15" />
+    <TextView android:id="@+id/greeting" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="28sp" android:textStyle="bold" android:textColor="#172E28" android:layout_marginTop="12dp" />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/your_everyday_money_all_in_one_place" android:textColor="#60756D" android:layout_marginBottom="22dp" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/card">
+      <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/available_balance_all_time" android:textColor="#60756D" android:textSize="12sp" />
+      <TextView android:id="@+id/balance" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/label_" android:textSize="36sp" android:textStyle="bold" android:textColor="#137C66" android:layout_marginTop="8dp" />
+      <TextView android:id="@+id/totals" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/loading_totals" android:textSize="16sp" android:layout_marginTop="16dp" android:textColor="#172E28" />
     </LinearLayout>
+    <Button android:id="@+id/add" android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="18dp" android:text="@string/add_transaction" android:backgroundTint="#137C66" android:textColor="#FFFFFF" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+      <Button android:id="@+id/categories" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/categories" style="?android:attr/borderlessButtonStyle" />
+      <Button android:id="@+id/report" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/monthly_report" style="?android:attr/borderlessButtonStyle" />
+    </LinearLayout>
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/transactions" android:textSize="23sp" android:textStyle="bold" android:textColor="#172E28" android:layout_marginTop="16dp" />
+    <TextView android:id="@+id/filterLabel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/all_dates_all_types_all_categories" android:textColor="#60756D" android:layout_marginTop="8dp" />
+    <Button android:id="@+id/filter" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/filter_refresh" style="?android:attr/borderlessButtonStyle" />
+    <TextView android:id="@+id/homeError" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#B3261E" android:accessibilityLiveRegion="polite" />
+    <LinearLayout android:id="@+id/entries" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
+    <Button android:id="@+id/logout" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/log_out" style="?android:attr/borderlessButtonStyle" android:layout_marginTop="20dp" />
+  </LinearLayout>
 </ScrollView>

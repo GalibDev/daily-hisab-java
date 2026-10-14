@@ -151,7 +151,7 @@ public class MainActivity extends Activity {
     AlertDialog dialog =
         new AlertDialog.Builder(this)
             .setTitle("Server settings")
-            .setView(form)
+            .setView(scroll(form))
             .setPositiveButton("Save", null)
             .setNegativeButton("Cancel", null)
             .create();
@@ -405,7 +405,7 @@ public class MainActivity extends Activity {
     AlertDialog dialog =
         new AlertDialog.Builder(this)
             .setTitle(existing == null ? "Add transaction" : "Edit transaction")
-            .setView(form)
+            .setView(scroll(form))
             .setPositiveButton("Save", null)
             .setNegativeButton("Cancel", null)
             .create();
@@ -462,7 +462,7 @@ public class MainActivity extends Activity {
     AlertDialog dialog =
         new AlertDialog.Builder(this)
             .setTitle("Add category")
-            .setView(form)
+            .setView(scroll(form))
             .setPositiveButton("Add", null)
             .setNegativeButton("Cancel", null)
             .create();
@@ -516,7 +516,7 @@ public class MainActivity extends Activity {
     AlertDialog dialog =
         new AlertDialog.Builder(this)
             .setTitle("Filter transactions")
-            .setView(form)
+            .setView(scroll(form))
             .setPositiveButton("Apply", null)
             .setNeutralButton(
                 "Reset",
@@ -566,7 +566,7 @@ public class MainActivity extends Activity {
     AlertDialog dialog =
         new AlertDialog.Builder(this)
             .setTitle("Monthly report")
-            .setView(form)
+            .setView(scroll(form))
             .setPositiveButton("View report", null)
             .setNegativeButton("Close", null)
             .create();
@@ -639,6 +639,12 @@ public class MainActivity extends Activity {
                   date.getDayOfMonth())
               .show();
         });
+  }
+
+  private ScrollView scroll(LinearLayout form) {
+    ScrollView scroll = new ScrollView(this);
+    scroll.addView(form);
+    return scroll;
   }
 
   private LinearLayout form() {

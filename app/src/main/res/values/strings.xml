@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="daily_hisab">DAILY HISAB</string>
+  <string name="your_money_na_clearer_picture">Your money.\nA clearer picture.</string>
+  <string name="track_everyday_income_and_expenses_in_taka">Track everyday income and expenses in taka.</string>
+  <string name="your_name">Your name</string>
+  <string name="email_address">Email address</string>
+  <string name="password_at_least_8_characters">Password (at least 8 characters)</string>
+  <string name="log_in">Log in</string>
+  <string name="new_here_create_an_account">New here? Create an account</string>
+  <string name="server_settings">Server settings</string>
+  <string name="your_everyday_money_all_in_one_place">Your everyday money, all in one place.</string>
+  <string name="available_balance_all_time">AVAILABLE BALANCE · ALL TIME</string>
+  <string name="label_">—</string>
+  <string name="loading_totals">Loading totals…</string>
+  <string name="add_transaction">+ Add transaction</string>
+  <string name="categories">Categories</string>
+  <string name="monthly_report">Monthly report</string>
+  <string name="transactions">Transactions</string>
+  <string name="all_dates_all_types_all_categories">All dates · All types · All categories</string>
+  <string name="filter_refresh">Filter / Refresh</string>
+  <string name="log_out">Log out</string>
+</resources>
