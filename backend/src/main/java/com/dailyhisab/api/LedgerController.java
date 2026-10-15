@@ -63,7 +63,8 @@ public class LedgerController {
       @RequestParam(required = false) LocalDate from,
       @RequestParam(required = false) LocalDate to,
       @RequestParam(required = false) String type,
-      @RequestParam(required = false) Long categoryId) {
+      @RequestParam(required = false) Long categoryId,
+      @RequestParam(required = false) @Size(max = 120) String q) {
     range(from, to);
     validType(type);
     StringBuilder sql =
@@ -88,6 +89,12 @@ public class LedgerController {
     if (categoryId != null) {
       sql.append(" AND c.id=?");
       args.add(categoryId);
+    }
+    if (q != null && !q.isBlank()) {
+      if(q.length()>120) throw new IllegalArgumentException();
+      String term="%"+q.trim().toLowerCase(Locale.ROOT).replace("!","!!").replace("%","!%").replace("_","!_")+"%";
+      sql.append(" AND (LOWER(t.note) LIKE ? ESCAPE '!' OR LOWER(c.name) LIKE ? ESCAPE '!')");
+      args.add(term); args.add(term);
     }
     sql.append(" ORDER BY t.occurred_on DESC,t.id DESC LIMIT 500");
     return db.query(

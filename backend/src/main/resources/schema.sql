@@ -30,3 +30,12 @@ CREATE TABLE IF NOT EXISTS transactions (
  FOREIGN KEY (category_id, user_id) REFERENCES categories(id, user_id),
  INDEX idx_transactions_user_date (user_id, occurred_on)
 );
+CREATE TABLE IF NOT EXISTS budgets (
+ id BIGINT PRIMARY KEY AUTO_INCREMENT,
+ user_id BIGINT NOT NULL,
+ month_key VARCHAR(7) NOT NULL,
+ category_key BIGINT NOT NULL DEFAULT 0 CHECK (category_key >= 0),
+ amount DECIMAL(14,2) NOT NULL CHECK (amount > 0),
+ UNIQUE (user_id, month_key, category_key),
+ FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
