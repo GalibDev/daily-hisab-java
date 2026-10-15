@@ -28,6 +28,7 @@ class LedgerIntegrationTest {
 
   @BeforeEach
   void setup() throws Exception {
+    db.update("DELETE FROM budgets");
     db.update("DELETE FROM transactions");
     db.update("DELETE FROM sessions");
     db.update("DELETE FROM categories");
@@ -36,6 +37,174 @@ class LedgerIntegrationTest {
     bob = register("bob@test.com");
     income = categoryId(alice, "Salary");
     expense = categoryId(alice, "Food");
+  }
+
+  @Test
+  void budgetsTrackOnlyTheirMonthCategoryAndOwner() throws Exception {
+    add(expense, "80.00", "2026-10-01");
+    add(income, "999", "2026-10-01");
+    add(expense, "999", "2026-09-30");
+    String budget = "{\"month\":\"2026-10\",\"categoryId\":" + expense + ",\"amount\":100}";
+    mvc.perform(
+            put("/api/budgets")
+                .header("Authorization", "Bearer " + alice)
+                .contentType("application/json")
+                .content(budget))
+        .andExpect(status().isOk());
+    mvc.perform(
+            put("/api/budgets")
+                .header("Authorization", "Bearer " + alice)
+                .contentType("application/json")
+                .content(budget))
+        .andExpect(status().isOk());
+    mvc.perform(
+            get("/api/budgets")
+                .param("month", "2026-10")
+                .header("Authorization", "Bearer " + alice))
+        .andExpect(jsonPath("$.length()").value(1))
+        .andExpect(jsonPath("$[0].spent").value(80))
+        .andExpect(jsonPath("$[0].status").value("NEAR"));
+    mvc.perform(
+            get("/api/budgets").param("month", "2026-10").header("Authorization", "Bearer " + bob))
+        .andExpect(jsonPath("$.length()").value(0));
+    long id = db.queryForObject("SELECT id FROM budgets", Long.class);
+    mvc.perform(delete("/api/budgets/" + id).header("Authorization", "Bearer " + bob))
+        .andExpect(status().isNotFound());
+    mvc.perform(
+            put("/api/budgets")
+                .header("Authorization", "Bearer " + bob)
+                .contentType("application/json")
+                .content(budget))
+        .andExpect(status().isNotFound());
+    mvc.perform(
+            put("/api/budgets")
+                .header("Authorization", "Bearer " + alice)
+                .contentType("application/json")
+                .content(budget.replace("100}", "50}")))
+        .andExpect(status().isOk());
+    mvc.perform(
+            get("/api/budgets")
+                .param("month", "2026-10")
+                .header("Authorization", "Bearer " + alice))
+        .andExpect(jsonPath("$[0].status").value("OVER"))
+        .andExpect(jsonPath("$[0].remaining").value(-30));
+    mvc.perform(delete("/api/categories/" + expense).header("Authorization", "Bearer " + alice))
+        .andExpect(status().isConflict());
+    mvc.perform(
+            put("/api/budgets")
+                .header("Authorization", "Bearer " + alice)
+                .contentType("application/json")
+                .content("{\"month\":\"2026-10\",\"categoryId\":0,\"amount\":1000}"))
+        .andExpect(status().isOk());
+    mvc.perform(
+            get("/api/budgets")
+                .param("month", "2026-10")
+                .header("Authorization", "Bearer " + alice))
+        .andExpect(jsonPath("$[0].spent").value(80))
+        .andExpect(jsonPath("$[0].status").value("OK"));
+    mvc.perform(
+            put("/api/budgets")
+                .header("Authorization", "Bearer " + alice)
+                .contentType("application/json")
+                .content("{\"month\":\"2026-10\",\"categoryId\":" + income + ",\"amount\":100}"))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void renamingKeepsLedgerAndUsedCategoriesCannotBeDeleted() throws Exception {
+    add(expense, "10", "2026-10-01");
+    mvc.perform(
+            put("/api/categories/" + expense)
+                .header("Authorization", "Bearer " + bob)
+                .contentType("application/json")
+                .content("{\"name\":\"Lunch\"}"))
+        .andExpect(status().isNotFound());
+    mvc.perform(
+            put("/api/categories/" + expense)
+                .header("Authorization", "Bearer " + alice)
+                .contentType("application/json")
+                .content("{\"name\":\"Lunch\"}"))
+        .andExpect(status().isOk());
+    mvc.perform(get("/api/transactions").header("Authorization", "Bearer " + alice))
+        .andExpect(jsonPath("$[0].category").value("Lunch"))
+        .andExpect(jsonPath("$[0].amount").value(10));
+    mvc.perform(delete("/api/categories/" + expense).header("Authorization", "Bearer " + alice))
+        .andExpect(status().isConflict());
+    mvc.perform(delete("/api/categories/" + income).header("Authorization", "Bearer " + alice))
+        .andExpect(status().isOk());
+  }
+
+  @Test
+  void searchIsLiteralCaseInsensitiveAndExportIsCompleteAndFormulaSafe() throws Exception {
+    add(expense, "10", "2026-10-01");
+    db.update("UPDATE transactions SET note=?", "=HYPERLINK(\"test\")\nLunch 100%_done");
+    for (String term : new String[] {"lUnCh", "100%_done", "Food"})
+      mvc.perform(
+              get("/api/transactions").param("q", term).header("Authorization", "Bearer " + alice))
+          .andExpect(jsonPath("$.length()").value(1));
+    mvc.perform(
+            get("/api/transactions")
+                .param("q", "missing%")
+                .header("Authorization", "Bearer " + alice))
+        .andExpect(jsonPath("$.length()").value(0));
+    String export =
+        mvc.perform(get("/api/export").header("Authorization", "Bearer " + alice))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.count").value(1))
+            .andReturn()
+            .getResponse()
+            .getContentAsString();
+    assertTrue(json.readTree(export).get("csv").asText().contains("\"'=HYPERLINK(\"\"test\"\")"));
+    mvc.perform(get("/api/export").header("Authorization", "Bearer " + bob))
+        .andExpect(jsonPath("$.count").value(0));
+    for (int i = 0; i < 501; i++)
+      db.update(
+          "INSERT INTO transactions(user_id,category_id,amount,occurred_on,note) SELECT"
+              + " user_id,id,1,'2026-10-01','batch' FROM categories WHERE id=?",
+          expense);
+    mvc.perform(get("/api/transactions").header("Authorization", "Bearer " + alice))
+        .andExpect(jsonPath("$.length()").value(500));
+    mvc.perform(get("/api/export").header("Authorization", "Bearer " + alice))
+        .andExpect(jsonPath("$.count").value(502));
+  }
+
+  @Test
+  void passwordChangeVerifiesOldPasswordAndRevokesEverySession() throws Exception {
+    mvc.perform(
+            put("/api/profile")
+                .header("Authorization", "Bearer " + alice)
+                .contentType("application/json")
+                .content("{\"name\":\"Updated Student\"}"))
+        .andExpect(status().isOk());
+    mvc.perform(get("/api/profile").header("Authorization", "Bearer " + alice))
+        .andExpect(jsonPath("$.name").value("Updated Student"));
+    String body = "{\"currentPassword\":\"password123\",\"newPassword\":\"newPassword123\"}";
+    mvc.perform(
+            post("/api/profile/password")
+                .header("Authorization", "Bearer " + alice)
+                .contentType("application/json")
+                .content(body.replace("password123", "wrongpass")))
+        .andExpect(status().isBadRequest());
+    mvc.perform(
+            post("/api/profile/password")
+                .header("Authorization", "Bearer " + alice)
+                .contentType("application/json")
+                .content(body))
+        .andExpect(status().isOk());
+    mvc.perform(get("/api/profile").header("Authorization", "Bearer " + alice))
+        .andExpect(status().isUnauthorized());
+    mvc.perform(
+            post("/api/auth/login")
+                .contentType("application/json")
+                .content("{\"email\":\"alice@test.com\",\"password\":\"password123\"}"))
+        .andExpect(status().isUnauthorized());
+    mvc.perform(
+            post("/api/auth/login")
+                .contentType("application/json")
+                .content("{\"email\":\"alice@test.com\",\"password\":\"newPassword123\"}"))
+        .andExpect(status().isOk());
+    mvc.perform(get("/api/profile").header("Authorization", "Bearer " + bob))
+        .andExpect(status().isOk());
   }
 
   String register(String email) throws Exception {

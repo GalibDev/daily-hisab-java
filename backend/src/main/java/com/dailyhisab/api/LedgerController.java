@@ -91,10 +91,18 @@ public class LedgerController {
       args.add(categoryId);
     }
     if (q != null && !q.isBlank()) {
-      if(q.length()>120) throw new IllegalArgumentException();
-      String term="%"+q.trim().toLowerCase(Locale.ROOT).replace("!","!!").replace("%","!%").replace("_","!_")+"%";
+      if (q.length() > 120) throw new IllegalArgumentException();
+      String term =
+          "%"
+              + q.trim()
+                  .toLowerCase(Locale.ROOT)
+                  .replace("!", "!!")
+                  .replace("%", "!%")
+                  .replace("_", "!_")
+              + "%";
       sql.append(" AND (LOWER(t.note) LIKE ? ESCAPE '!' OR LOWER(c.name) LIKE ? ESCAPE '!')");
-      args.add(term); args.add(term);
+      args.add(term);
+      args.add(term);
     }
     sql.append(" ORDER BY t.occurred_on DESC,t.id DESC LIMIT 500");
     return db.query(
