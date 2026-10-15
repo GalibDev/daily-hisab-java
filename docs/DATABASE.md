@@ -6,6 +6,7 @@
 | sessions | Expiring login sessions | SHA-256 token hash, user_id, expires_at |
 | categories | User's income/expense categories | id, user_id, name, type |
 | transactions | Ledger entries | id, user_id, category_id, amount, occurred_on, note |
+| budgets | Monthly overall/category spending limits | id, user_id, month_key, category_key, amount |
 
 ## ER diagram
 
@@ -14,6 +15,7 @@ erDiagram
     users ||--o{ sessions : authenticates
     users ||--o{ categories : owns
     users ||--o{ transactions : records
+    users ||--o{ budgets : plans
     categories ||--o{ transactions : categorizes
     users {
         BIGINT id PK
@@ -40,11 +42,20 @@ erDiagram
         DATE occurred_on
         VARCHAR note
     }
+    budgets {
+        BIGINT id PK
+        BIGINT user_id FK
+        VARCHAR month_key
+        BIGINT category_key
+        DECIMAL amount
+    }
 ```
 
 The composite category/user foreign key prevents assigning another user's category to a transaction.
 Transaction type comes from the category, avoiding duplicated type values.
 Amounts are positive; income/expense determines their effect on balance.
+
+Budgets use `category_key = 0` for an overall month limit. Positive keys reference a user's expense category, validated and locked by the API. The unique (user, month, category) key permits one limit per scope/month. Because 0 is a sentinel rather than a real category, this column has no category foreign key; category deletion explicitly checks budget references. Restrict direct database writes to the backend.
 
 ## SQL concepts to explain
 

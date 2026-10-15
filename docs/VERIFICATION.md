@@ -1,5 +1,18 @@
 # Version 1 verification
 
+## Phase 2 verification — 15 October 2026
+
+- Eight API integration tests passed against H2 and real MySQL 8.4.11.
+- Android debug APK and executable backend JAR built successfully.
+- Android lint: 0 errors; remaining warnings concern localization implementation and SDK guidance.
+- Extended emulator test passed: registration, expense entry, monthly report/chart, 80% budget warning, literal note search and persistent Bangla language selection.
+- API tests also cover category rename/delete protection, overall/category budget scoping, full export beyond 500 rows, CSV formula protection, profile changes and password/session revocation.
+- Offline sync, background budget notifications, hosted HTTPS deployment and password reset remain outside phase 2.
+
+The phase 2 emulator test covers more flows than the original version 1 test below; it does not claim every UI path or Android device has been tested.
+
+---
+
 Verified locally on 15 October 2026:
 
 | Check | Result |

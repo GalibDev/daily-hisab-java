@@ -28,7 +28,7 @@ CREATE USER 'daily_hisab'@'localhost' IDENTIFIED BY 'choose-your-local-password'
 GRANT ALL PRIVILEGES ON daily_hisab.* TO 'daily_hisab'@'localhost';
 ```
 
-The backend initializes the four tables from `backend/src/main/resources/schema.sql`.
+The backend initializes the five tables from `backend/src/main/resources/schema.sql`.
 `CREATE TABLE IF NOT EXISTS` creates a fresh schema; it is not an upgrade/migration system.
 
 ## 2. Backend
@@ -90,11 +90,13 @@ This test registers a uniquely named demo account, adds an expense and checks th
 
 GitHub Actions also runs the API tests against a MySQL service, checks Android lint, and uploads the debug APK. The emulator test is run locally.
 
-## Version 1 boundaries
+## Version 2 boundaries
 
 - Server connection required; no offline synchronization.
 - Transaction list shows latest 500 matching entries; narrow filters for older records.
 - Money uses BDT, SQL DECIMAL and Java BigDecimal.
-- English interface; Bangla translation is future work.
-- Categories can be added; renaming/deleting categories, export and charts are future work.
+- English / Bangla interface; user-entered notes and custom names are preserved. Dates use ISO format and money is BDT.
+- Used categories cannot be deleted. Renaming keeps their transaction amounts and types unchanged.
+- Budget alerts appear inside the app when it loads or refreshes; background/push notifications are not included.
+- CSV exports the full ledger, independent of active list filters. Export requires a server connection.
 - Sessions expire after seven days. HTTPS deployment, password reset and login rate limiting are future production work.
