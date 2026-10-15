@@ -20,4 +20,10 @@
   <string name="all_dates_all_types_all_categories">All dates · All types · All categories</string>
   <string name="filter_refresh">Filter / Refresh</string>
   <string name="log_out">Log out</string>
+  <string name="home">Home</string>
+  <string name="budgets">Budgets</string>
+  <string name="settings">Settings</string>
+  <string name="search">Search</string>
+  <string name="search_hint">Search note or category</string>
+  <string name="language">বাংলা / English</string>
 </resources>

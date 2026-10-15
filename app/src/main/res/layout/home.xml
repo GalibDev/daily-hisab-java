@@ -1,24 +1,34 @@
-<?xml version='1.0' encoding='utf-8'?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:background="#F4F7F6" android:fillViewport="true">
-  <LinearLayout android:id="@+id/root" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="22dp" android:orientation="vertical">
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/daily_hisab" android:textColor="#137C66" android:textStyle="bold" android:letterSpacing="0.15" />
-    <TextView android:id="@+id/greeting" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="28sp" android:textStyle="bold" android:textColor="#172E28" android:layout_marginTop="12dp" />
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/your_everyday_money_all_in_one_place" android:textColor="#60756D" android:layout_marginBottom="22dp" />
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/card">
-      <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/available_balance_all_time" android:textColor="#60756D" android:textSize="12sp" />
-      <TextView android:id="@+id/balance" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/label_" android:textSize="36sp" android:textStyle="bold" android:textColor="#137C66" android:layout_marginTop="8dp" />
-      <TextView android:id="@+id/totals" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/loading_totals" android:textSize="16sp" android:layout_marginTop="16dp" android:textColor="#172E28" />
-    </LinearLayout>
-    <Button android:id="@+id/add" android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="18dp" android:text="@string/add_transaction" android:backgroundTint="#137C66" android:textColor="#FFFFFF" />
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-      <Button android:id="@+id/categories" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/categories" style="?android:attr/borderlessButtonStyle" />
-      <Button android:id="@+id/report" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/monthly_report" style="?android:attr/borderlessButtonStyle" />
-    </LinearLayout>
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/transactions" android:textSize="23sp" android:textStyle="bold" android:textColor="#172E28" android:layout_marginTop="16dp" />
-    <TextView android:id="@+id/filterLabel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/all_dates_all_types_all_categories" android:textColor="#60756D" android:layout_marginTop="8dp" />
-    <Button android:id="@+id/filter" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/filter_refresh" style="?android:attr/borderlessButtonStyle" />
-    <TextView android:id="@+id/homeError" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#B3261E" android:accessibilityLiveRegion="polite" />
-    <LinearLayout android:id="@+id/entries" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
-    <Button android:id="@+id/logout" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/log_out" style="?android:attr/borderlessButtonStyle" android:layout_marginTop="20dp" />
-  </LinearLayout>
-</ScrollView>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/root" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="#F2F5F9">
+<ScrollView android:id="@+id/homeScroll" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:fillViewport="true">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="22dp" android:orientation="vertical">
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/daily_hisab" android:textColor="#147D72" android:textStyle="bold" android:letterSpacing="0.14" android:drawableStart="@drawable/ic_wallet" android:drawablePadding="10dp" android:gravity="center_vertical"/>
+<TextView android:id="@+id/greeting" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="28sp" android:textStyle="bold" android:textColor="#182A40" android:layout_marginTop="18dp"/>
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/your_everyday_money_all_in_one_place" android:textColor="#68798B" android:layout_marginBottom="20dp"/>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/balance_card" android:padding="24dp">
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/available_balance_all_time" android:textColor="#C6DEED" android:textSize="11sp"/>
+<TextView android:id="@+id/balance" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/label_" android:textSize="36sp" android:textStyle="bold" android:textColor="#FFFFFF" android:layout_marginTop="12dp"/>
+<TextView android:id="@+id/totals" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/loading_totals" android:textColor="#FFFFFF" android:textSize="16sp" android:lineSpacingExtra="8dp" android:layout_marginTop="18dp"/>
+</LinearLayout>
+<Button android:id="@+id/add" android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="16dp" android:text="@string/add_transaction" android:backgroundTint="#147D72" android:textColor="#FFFFFF" android:textAllCaps="false"/>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+<Button android:id="@+id/categories" android:layout_width="0dp" android:layout_weight="1" android:layout_height="52dp" android:text="@string/categories" android:textAllCaps="false" style="?android:attr/borderlessButtonStyle"/>
+<Button android:id="@+id/report" android:layout_width="0dp" android:layout_weight="1" android:layout_height="52dp" android:text="@string/monthly_report" android:textAllCaps="false" style="?android:attr/borderlessButtonStyle"/>
+</LinearLayout>
+<LinearLayout android:id="@+id/budgetPanel" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"/>
+<TextView android:id="@+id/transactionHeading" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/transactions" android:textSize="23sp" android:textStyle="bold" android:textColor="#182A40" android:layout_marginTop="20dp"/>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+<EditText android:id="@+id/search" android:layout_width="0dp" android:layout_weight="1" android:layout_height="56dp" android:hint="@string/search_hint" android:inputType="text" android:maxLength="120" android:singleLine="true" android:imeOptions="actionSearch" android:textSize="14sp"/>
+<Button android:id="@+id/searchButton" android:layout_width="wrap_content" android:layout_height="52dp" android:text="@string/search" android:textAllCaps="false"/>
+</LinearLayout>
+<TextView android:id="@+id/filterLabel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/all_dates_all_types_all_categories" android:textColor="#68798B" android:textSize="12sp"/>
+<Button android:id="@+id/filter" android:layout_width="match_parent" android:layout_height="48dp" android:text="@string/filter_refresh" android:textAllCaps="false" style="?android:attr/borderlessButtonStyle"/>
+<TextView android:id="@+id/homeError" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#B3261E" android:accessibilityLiveRegion="polite"/>
+<LinearLayout android:id="@+id/entries" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"/>
+<Button android:id="@+id/logout" android:layout_width="match_parent" android:layout_height="48dp" android:text="@string/log_out" style="?android:attr/borderlessButtonStyle" android:layout_marginTop="16dp"/>
+</LinearLayout></ScrollView>
+<LinearLayout android:layout_width="match_parent" android:layout_height="64dp" android:orientation="horizontal" android:background="#FFFFFF" android:elevation="8dp" android:gravity="center_vertical">
+<Button android:id="@+id/navHome" android:layout_width="0dp" android:layout_weight="1" android:layout_height="56dp" android:text="@string/home" android:drawableTop="@drawable/ic_home" style="@style/NavButton"/>
+<Button android:id="@+id/navLedger" android:layout_width="0dp" android:layout_weight="1" android:layout_height="56dp" android:text="@string/transactions" android:drawableTop="@drawable/ic_wallet" style="@style/NavButton"/>
+<Button android:id="@+id/navBudget" android:layout_width="0dp" android:layout_weight="1" android:layout_height="56dp" android:text="@string/budgets" android:drawableTop="@drawable/ic_budget" style="@style/NavButton"/>
+<Button android:id="@+id/navSettings" android:layout_width="0dp" android:layout_weight="1" android:layout_height="56dp" android:text="@string/settings" android:drawableTop="@drawable/ic_person" style="@style/NavButton"/>
+</LinearLayout></LinearLayout>

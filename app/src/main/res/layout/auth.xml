@@ -11,5 +11,5 @@
     <Button android:id="@+id/submit" android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="18dp" android:text="@string/log_in" android:backgroundTint="#137C66" android:textColor="#FFFFFF" />
     <Button android:id="@+id/switchAuth" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/new_here_create_an_account" style="?android:attr/borderlessButtonStyle" />
     <Button android:id="@+id/server" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/server_settings" style="?android:attr/borderlessButtonStyle" />
-  </LinearLayout>
+  <Button android:id="@+id/language" android:layout_width="match_parent" android:layout_height="48dp" android:text="@string/language" style="?android:attr/borderlessButtonStyle"/></LinearLayout>
 </ScrollView>
