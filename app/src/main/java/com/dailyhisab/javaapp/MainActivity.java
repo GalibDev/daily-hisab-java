@@ -1272,6 +1272,7 @@ public class MainActivity extends Activity {
   private EditText input(LinearLayout parent, String hint, String value, int type) {
     EditText field = new EditText(this);
     field.setHint(tr(hint));
+    field.setContentDescription(tr(hint));
     field.setText(value);
     field.setInputType(type);
     field.setSingleLine(true);

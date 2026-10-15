@@ -41,6 +41,7 @@ public class AppSmokeTest {
     waitFor(id("add")).click();
     UiObject2 amount = waitFor(By.clazz("android.widget.EditText"));
     amount.setText("250.50");
+    waitFor(By.desc("Note (optional)")).setText("Phase 2 lunch");
     waitFor(By.text("SAVE")).click();
     assertTrue(device.wait(Until.hasObject(By.text("৳ -250.50")), 20000));
     File dir = context.getExternalFilesDir(null);
@@ -49,5 +50,22 @@ public class AppSmokeTest {
     waitFor(By.text("VIEW REPORT")).click();
     assertNotNull(device.wait(Until.findObject(By.textContains("Expenses: ৳ 250.50")), 20000));
     device.takeScreenshot(new File(dir, "monthly-report.png"));
+    waitFor(By.text("CLOSE")).click();
+    waitFor(id("navBudget")).click();
+    waitFor(By.text("Add budget")).click();
+    waitFor(By.desc("Budget amount (BDT)")).setText("300.00");
+    waitFor(By.text("SAVE")).click();
+    waitFor(By.text("80% of budget used"));
+    waitFor(By.text("CLOSE")).click();
+    waitFor(id("navLedger")).click();
+    waitFor(id("search")).setText("lunch");
+    waitFor(id("searchButton")).click();
+    waitFor(By.textContains("−৳ 250.50"));
+    waitFor(id("navSettings")).click();
+    waitFor(By.text("Language")).click();
+    waitFor(By.text("বাংলা")).click();
+    waitFor(By.text("হোম"));
+    waitFor(By.textContains("স্বাগতম, "));
+    device.takeScreenshot(new File(dir, "bangla-dashboard.png"));
   }
 }

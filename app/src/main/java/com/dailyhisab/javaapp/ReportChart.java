@@ -12,6 +12,7 @@ public class ReportChart extends View {
   private final boolean bn;
   private double income, expense;
   private final List<Double> slices = new ArrayList<>();
+  private final List<String> names = new ArrayList<>();
   private final int[] colors = {
     0xff147D72, 0xff557BD7, 0xffE7A648, 0xffAD78BE, 0xffDE7466, 0xff56A4B8
   };
@@ -28,10 +29,19 @@ public class ReportChart extends View {
     income = summary.optDouble("income");
     expense = summary.optDouble("expense");
     slices.clear();
+    names.clear();
     JSONArray categories = report.optJSONArray("categories");
     for (int i = 0; i < categories.length(); i++) {
       JSONObject c = categories.optJSONObject(i);
-      if (c.optString("type").equals("EXPENSE")) slices.add(c.optDouble("total"));
+      if (c.optString("type").equals("EXPENSE")) {
+        if (slices.size() < 5) {
+          slices.add(c.optDouble("total"));
+          names.add(bn ? Translations.bn(c.optString("category")) : c.optString("category"));
+        } else if (slices.size() == 5) {
+          slices.add(c.optDouble("total"));
+          names.add(bn ? "বাকি খাত" : "Remaining categories");
+        } else slices.set(5, slices.get(5) + c.optDouble("total"));
+      }
     }
     ready = true;
     setContentDescription(
@@ -67,7 +77,7 @@ public class ReportChart extends View {
     }
     paint.setColor(0xff405B50);
     canvas.drawText(bn ? "খাত অনুযায়ী ব্যয়" : "Expense share by category", 8 * d, 154 * d, paint);
-    float center = w / 2, r = 57 * d;
+    float center = 69 * d, r = 57 * d;
     RectF bounds = new RectF(center - r, 170 * d, center + r, 284 * d);
     float start = -90;
     if (expense == 0) {
@@ -91,5 +101,18 @@ public class ReportChart extends View {
         231 * d,
         paint);
     paint.setTextAlign(Paint.Align.LEFT);
+    paint.setTextSize(11 * d);
+    for (int i = 0; i < names.size(); i++) {
+      float y = (181 + i * 20) * d;
+      paint.setColor(colors[i]);
+      canvas.drawCircle(139 * d, y - 3 * d, 4 * d, paint);
+      paint.setColor(0xff405B50);
+      String label = names.get(i);
+      float available = Math.max(12 * d, w - 158 * d);
+      while (label.length() > 1 && paint.measureText(label) > available)
+        label = label.substring(0, label.length() - 1);
+      if (!label.equals(names.get(i))) label += "…";
+      canvas.drawText(label, 149 * d, y, paint);
+    }
   }
 }
