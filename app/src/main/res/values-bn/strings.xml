@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="daily_hisab">ডেইলি হিসাব</string>
+  <string name="your_money_na_clearer_picture">আপনার টাকা।\nহিসাব আরও সহজ।</string>
+  <string name="track_everyday_income_and_expenses_in_taka">প্রতিদিনের আয় ও ব্যয়ের হিসাব রাখুন।</string>
+  <string name="your_name">আপনার নাম</string>
+  <string name="email_address">ইমেইল ঠিকানা</string>
+  <string name="password_at_least_8_characters">পাসওয়ার্ড (কমপক্ষে ৮ অক্ষর)</string>
+  <string name="log_in">লগ ইন</string>
+  <string name="new_here_create_an_account">নতুন? অ্যাকাউন্ট তৈরি করুন</string>
+  <string name="server_settings">সার্ভার সেটিংস</string>
+  <string name="your_everyday_money_all_in_one_place">প্রতিদিনের হিসাব, এক জায়গায়।</string>
+  <string name="available_balance_all_time">বর্তমান ব্যালেন্স · সব সময়</string>
+  <string name="label_">—</string>
+  <string name="loading_totals">মোট হিসাব আসছে…</string>
+  <string name="add_transaction">+ লেনদেন যোগ করুন</string>
+  <string name="categories">খাতসমূহ</string>
+  <string name="monthly_report">মাসিক রিপোর্ট</string>
+  <string name="transactions">লেনদেন</string>
+  <string name="all_dates_all_types_all_categories">সব তারিখ · সব ধরন · সব খাত</string>
+  <string name="filter_refresh">ফিল্টার / রিফ্রেশ</string>
+  <string name="log_out">লগ আউট</string>
+  <string name="home">হোম</string>
+  <string name="budgets">বাজেট</string>
+  <string name="settings">সেটিংস</string>
+  <string name="search">খুঁজুন</string>
+  <string name="search_hint">নোট বা খাত দিয়ে খুঁজুন</string>
+  <string name="language">বাংলা / English</string>
+</resources>
